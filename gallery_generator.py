@@ -21,7 +21,7 @@ import os
 import glob
 import shutil
 
-EXTENSIONS = ['.jpg', '.jpeg', '.png']
+from handle_files import copy_images, EXTENSIONS
 
 def main(jekyll_site_path, images_path, category): 
 
@@ -49,22 +49,13 @@ def main(jekyll_site_path, images_path, category):
     # Populate gallery .yml with images in gallery_path
     populate_gallery(jekyll_site_path, gallery_name, gallery_path)
 
-def copy_images(src_dir, dst_dir):
-    """Copy images from the original directory to the gallery directory.
-    """
-    print(f" Finding images in {src_dir} to copy to {dst_dir}")
-    for extension in EXTENSIONS:
-        print(f"extension is {extension}")
-        image_path = os.path.join(src_dir, '*' + extension)
-        print(f"Path is {image_path}")
-        for image_file in glob.iglob(image_path):
-            print(f"Copying image {image_file} \n from: {src_dir} \n to: {dst_dir} \n")
-            shutil.copy(image_file, dst_dir)
-
-
 def create_page(jekyll_site_path, gallery_name, category):
     page_path = os.path.join(jekyll_site_path, '_pages')
-    
+
+    if not os.path.exists(page_path):
+        print(f"Page path {page_path} does not exist :(")
+        return False  
+
     # make new file in ./_pages/$FOLDER_NAME.md 
     f = open(os.path.join(page_path, gallery_name + '.md') ,"w+")
     f.write("---\n")
