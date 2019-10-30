@@ -61,7 +61,7 @@ def create_page(jekyll_site_path, gallery_name, category):
     f.write("---\n")
     f.write('layout: gallery\n')
     f.write('title: ' + gallery_name + '\n')
-    f.write('permalink: "' + category + '/' + gallery_name + '/"' + '\n')
+    f.write('permalink: "' + '/' + category + '/' + gallery_name + '/"' + '\n')
     f.write("---\n")
     f.close() 
     print(f"Created page {page_path}")
